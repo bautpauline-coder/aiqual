@@ -1,0 +1,471 @@
+{
+  "name": "Alfred - Groupe Pipo&Mario",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "aacb83a4-abab-49ba-80c2-f145f0e54a29",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -432,
+        1568
+      ],
+      "webhookId": "828431b3-f44a-40c3-a769-b4f3f0a1ecab",
+      "credentials": {
+        "telegramApi": {
+          "id": "0KNz9PhnOv0oGzgE",
+          "name": "Telegram Pipo Mario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-text-check",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b82ddde0-a60b-485f-a97b-9b6164d63d34",
+      "name": "Filtre Texte",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        1568
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Envoie-moi un message texte et je t'aide ! 😊",
+        "additionalFields": {}
+      },
+      "id": "9c181c35-4034-400d-9360-70ddd2ccdf76",
+      "name": "Réponse Texte Seul",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -432,
+        1760
+      ],
+      "webhookId": "13c66029-0545-45fa-acc5-cb47a3f9d651",
+      "credentials": {
+        "telegramApi": {
+          "id": "0KNz9PhnOv0oGzgE",
+          "name": "Telegram Pipo Mario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "mission-field",
+              "name": "mission",
+              "value": "# [NOM DE L'AGENT]\n\n## Mission\nTu es l'assistant de [Pipo&Mario Corp.]. Tu es spécialisé dans [la fiscalité intertionale].\n\n## Périmètre\nTu fais :\n- Optimisation fiscale\n- Comptabilité\n- droit des entreprises\n- taxe des entreprises\n\nTu ne fais PAS :\n- Autre sujet que la fiscalité\n- Jugement de valeurs bien ou mal\n\n## Règles générales\n- Tu communiques exclusivement via Telegram\n- Tu réponds toujours en français\n- Quand tu ne sais pas, tu le dis clairement\n- Tu ne prends jamais de décision engageante sans demander confirmation\n- Tes réponses font maximum 10 lignes sauf demande contraire",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a098b38a-23a1-4ff7-b6e4-12c4ffa80f44",
+      "name": "✏️ Fiche_de_poste.MD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -64,
+        1216
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "personnalite-field",
+              "name": "personnalite",
+              "value": "# Personnalité\n\n## Ton\n- [Formel / Factuel]\n- Tu [vouvoies] l'utilisateur\n\n## Caractère\n- Tu es [direct / diplomate / encourageant / provocateur]\n- Quand on te pose une question floue, tu proposes 2-3 options\n- Quand tu fais une erreur, tu en fais une blague puis corriges\n\n## Style d'écriture\n- Tu utilises des emojis : [oui / parfois / jamais]\n- Tu structures tes réponses avec : des listes et des paragraphes courts\n- Ta longueur de réponse par défaut : 1-2 phrases\n\n## Signature\n- Tu commences tes messages par : [rien / un emoji / une formule]\n- Tu finis par : une question de suivi\n\n## Exemples de ton\n- Si on dit \"merci\" → \"[...]\"\n- Si on dit \"c'est urgent\" → \"[...]\"\n- Si on dit \"je sais pas quoi faire\" → \"[...]\"",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4eb4171c-0e4b-486e-9690-dc000e497d1e",
+      "name": "✏️ Soul.MD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        80,
+        1216
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "skills-field",
+              "name": "skills",
+              "value": "# Skill : Résumé\n\n## Déclencheur\nActive ce skill quand l'utilisateur :\n- Envoie un long texte (> 5 lignes) sans autre instruction\n- Utilise les mots : résume, synthèse, TLDR, en bref\n\n## Méthode\n1. Identifier le sujet principal\n2. Extraire les 3-5 points clés\n3. Reformuler dans ton propre style\n4. Ajouter une ligne \"Action suggérée\" si pertinent\n\n## Format de sortie\n**[SUJET] — Résumé**\n- Point 1\n- Point 2\n- Point 3\n→ Action suggérée : [...]\n\n## Règles\n- Maximum 10 lignes\n- Si le texte est ambigu, demander une précision avant de résumer",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "58ae4c5f-00f5-4d3d-a115-43ae3a68b02f",
+      "name": "✏️ Skill.MD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        1216
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Data flows: Fiche -> Soul -> Skill -> here\n// Each Set node only outputs its own field\n// So we need to access earlier nodes by name\n\nlet mission = '';\nlet personnalite = '';\nlet skills = '';\nlet chatId = '';\nlet userMessage = '';\n\n// Try node references first, then input fallback\ntry { mission = $('✏️ Fiche_de_poste.MD').first().json.mission || ''; } catch(e) {}\ntry { personnalite = $('✏️ Soul.MD').first().json.personnalite || ''; } catch(e) {}\ntry { skills = $('✏️ Skill.MD').first().json.skills || ''; } catch(e) {}\n\n// Fallback to input (will only have skills from Skill.MD)\nif (!mission && !personnalite && !skills) {\n  try {\n    const inp = $input.first().json;\n    mission = inp.mission || '';\n    personnalite = inp.personnalite || '';\n    skills = inp.skills || '';\n  } catch(e) {}\n}\n\ntry {\n  const items = $('Filtre Texte').all();\n  if (items.length > 0) {\n    chatId = items[0].json.message?.chat?.id || '';\n    userMessage = items[0].json.message?.text || '';\n  }\n} catch(e) {}\n\n// === /sync COMMAND ===\nif (userMessage.toLowerCase().startsWith('/sync')) {\n  const identity = [mission, personnalite].filter(c => c.trim()).join('\\n\\n');\n\n  // Send to ai-town and get name from response\n  let syncName = 'Mon Agent';\n  try {\n    const resp = await this.helpers.httpRequest({\n      method: 'POST',\n      url: 'https://basic-marten-342.eu-west-1.convex.site/add_agent',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({\n        name: (() => {\n          const m = mission.match(/^#\\s*(.+)/m);\n          return m ? m[1].replace(/[\\[\\]]/g, '').trim() : 'Mon Agent';\n        })(),\n        identity: identity || 'Un assistant sympathique.',\n        plan: (() => {\n          const m = mission.match(/## Mission\\n(.+)/m);\n          return m ? m[1].trim() : 'Être utile et discuter.';\n        })()\n      }),\n    });\n    syncName = resp.name || syncName;\n  } catch(e) {}\n\n  return [{\n    json: {\n      system_prompt: 'Dis exactement ceci sans rien ajouter : ✅ ' + syncName + ' a été envoyé dans la ville ! Regarde l\\'écran pour le voir interagir avec les autres bots.',\n      user_message: '/sync',\n      chat_id: String(chatId),\n      session_id: 'groupe_n_' + chatId\n    }\n  }];\n}\n\n// === NORMAL MESSAGE ===\nconst systemPrompt = [mission, personnalite, skills]\n  .filter(c => c.trim())\n  .join('\\n\\n---\\n\\n');\n\nreturn [{\n  json: {\n    system_prompt: systemPrompt || 'Tu es un assistant utile et sympathique. Réponds en français.',\n    user_message: userMessage,\n    chat_id: String(chatId),\n    session_id: 'groupe_n_' + chatId\n  }\n}];"
+      },
+      "id": "89a5f72b-2187-4851-809e-abe93f46947b",
+      "name": "Construire Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        80,
+        1424
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.user_message }}",
+        "options": {
+          "systemMessage": "={{ $json.system_prompt }}"
+        }
+      },
+      "id": "55abe7f3-bd79-4c95-933c-956f49cfa04e",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        16,
+        1584
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "f2882cb4-d91c-4b73-b025-d564e90e1249",
+      "name": "OpenAI GPT-4o-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        1792
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "fanPjqrUeUN93dDQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Construire Prompt').item.json.session_id }}",
+        "contextWindowLength": 10
+      },
+      "id": "ec72c1b2-90cd-44dc-8434-b2a46b245b4c",
+      "name": "Mémoire Conversation",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Construire Prompt').item.json.chat_id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "b1688ba8-bfa1-4804-9cab-a95b7655cb9e",
+      "name": "Réponse Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        1584
+      ],
+      "webhookId": "6d2da2de-fc7a-43d9-bd66-039223f7e5e4",
+      "credentials": {
+        "telegramApi": {
+          "id": "0KNz9PhnOv0oGzgE",
+          "name": "Telegram Pipo Mario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "key-check",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/key",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f1f79c16-43ac-4c69-8c1f-9114abd755af",
+      "name": "Est-ce /key ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        1104
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Voici la clé API OpenAI pour l'atelier :\n\n<code>CHANGE_ME_OPENAI_KEY</code>\n\nClique sur la clé pour la copier. Dans n8n : clique sur le node OpenAI GPT-4o-mini → Credential → colle cette clé.",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "7a2af616-e773-4f96-a241-2bad40ca8351",
+      "name": "Envoyer Clé API",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1136,
+        1232
+      ],
+      "webhookId": "394167a8-5abf-40a7-ba5c-36ef3450b203",
+      "credentials": {
+        "telegramApi": {
+          "id": "0KNz9PhnOv0oGzgE",
+          "name": "Telegram Pipo Mario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "generate_image",
+        "description": "Generate an image from a text description. Use when the user asks to create, draw, generate or imagine an image. Input should be an image description in English.",
+        "jsCode": "const query = $fromAI('query', 'image description in English');\n\n// Uses the OpenAI API key — set this in the workflow\nconst API_KEY = 'CHANGE_ME_OPENAI_KEY';\n\nconst response = await fetch('https://api.openai.com/v1/images/generations', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + API_KEY,\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    model: 'dall-e-3',\n    prompt: query,\n    n: 1,\n    size: '1024x1024'\n  })\n});\n\nconst data = await response.json();\nif (data.error) return 'Erreur: ' + data.error.message;\nconst url = data.data?.[0]?.url;\nreturn 'Image generated! URL: ' + url;"
+      },
+      "name": "DALL_E_Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1,
+      "position": [
+        320,
+        1872
+      ],
+      "id": "652b9940-eded-423c-a1b5-da0413efe99d"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filtre Texte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtre Texte": {
+      "main": [
+        [
+          {
+            "node": "Est-ce /key ?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse Texte Seul",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✏️ Fiche_de_poste.MD": {
+      "main": [
+        [
+          {
+            "node": "✏️ Soul.MD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✏️ Soul.MD": {
+      "main": [
+        [
+          {
+            "node": "✏️ Skill.MD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✏️ Skill.MD": {
+      "main": [
+        [
+          {
+            "node": "Construire Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construire Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Réponse Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mémoire Conversation": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Est-ce /key ?": {
+      "main": [
+        [
+          {
+            "node": "Envoyer Clé API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "✏️ Fiche_de_poste.MD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DALL_E_Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "11dbbe7f-9404-42aa-9a00-50010a40a2fb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "501188026351cca24b0a0b82b0f64dbc94cf22de9f1436ffca5fb9e20f9b1c74"
+  },
+  "id": "oHF7H3JISwFPUllo",
+  "tags": [
+    {
+      "updatedAt": "2026-03-27T19:52:29.533Z",
+      "createdAt": "2026-03-27T19:52:29.533Z",
+      "id": "mHtDPrfchVFbd0hh",
+      "name": "Alfred Workshop"
+    }
+  ]
+}

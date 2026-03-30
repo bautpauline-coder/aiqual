@@ -1,0 +1,254 @@
+{
+  "name": "Repondeur pour Rendez-vous",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "95db784e-c26b-4b7a-a9d9-68ee150f6533",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -416,
+        -48
+      ],
+      "id": "418aa630-b592-482b-a93c-d41b3f84fdcf",
+      "name": "Webhook",
+      "webhookId": "95db784e-c26b-4b7a-a9d9-68ee150f6533"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.args.demande }}",
+        "options": {
+          "systemMessage": "=Tu es un assistant spécialisé uniquement dans la gestion de rendez-vous.\n\nVoici la date du jour : {{ new Date().toLocaleString('en-FR', { timeZone: 'Europe/Paris' }) }}\n\nTes seules fonctions autorisées sont :\nvérifier si un créneau est libre\nproposer un rendez-vous à un moment libre\nconfirmer la prise de rendez-vous.\n\nTu ne dois jamais répondre à une autre demande (question générale, discussion, conseil, technique, etc.)"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -32,
+        -48
+      ],
+      "id": "28af898d-7d53-4758-98a9-00c82a51e940",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "o1",
+          "mode": "list",
+          "cachedResultName": "o1"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -176,
+        160
+      ],
+      "id": "df091f0b-c18c-40c8-985b-87ea5ab1fb68",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "4jhioM2t7XOyAXRn",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "rodolphe.duthu@aiqual.ai",
+          "mode": "list",
+          "cachedResultName": "rodolphe.duthu@aiqual.ai"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "attendees": [],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        160
+      ],
+      "id": "c83160c4-5c29-403f-982a-097dd15bea39",
+      "name": "Create an event in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "DD98dpSxrDSHFF8z",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.call.call_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        160
+      ],
+      "id": "252645f9-b408-4215-a587-7ae98c270887",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "rodolphe.duthu@aiqual.ai",
+          "mode": "list",
+          "cachedResultName": "rodolphe.duthu@aiqual.ai"
+        },
+        "limit": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        160
+      ],
+      "id": "3f9ee846-ee6e-479f-a4dd-cd05eda5b093",
+      "name": "Get many events in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "DD98dpSxrDSHFF8z",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bad40046-9d89-47d1-9226-cc6a6fbb6a5c",
+              "name": "body.args.demande",
+              "value": "={{ $json.body.args.demande }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        -48
+      ],
+      "id": "2d605423-7e0c-4a88-9263-f7e96a3ce406",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many events in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Europe/Zurich",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "c6155fdd-97c4-4a6a-9fcb-9d76704d0fda",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a97793f286e6bf226052813376d9f77f990ee8c6634ba76b3714b5f529503e31"
+  },
+  "id": "lawYDv2VT1awvoCVPbk9N",
+  "tags": []
+}

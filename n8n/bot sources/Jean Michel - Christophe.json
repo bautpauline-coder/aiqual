@@ -1,0 +1,473 @@
+{
+  "name": "Jean Michel - Christophe",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "21271b92-424a-45e1-8b8d-b3e4d9056c98",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        4352,
+        2032
+      ],
+      "webhookId": "482cff94-9171-40d8-af96-9e6014ca5046",
+      "credentials": {
+        "telegramApi": {
+          "id": "K4lM8nzhI4FdBRgO",
+          "name": "Telegram Kris"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-text-check",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f97fab74-98d5-4035-9949-019f7977aba2",
+      "name": "Filtre Texte",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        4528,
+        2032
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Envoie-moi un message texte et je t'aide ! 😊",
+        "additionalFields": {}
+      },
+      "id": "f0978369-8130-4192-832c-4e007c950016",
+      "name": "Réponse Texte Seul",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4352,
+        2224
+      ],
+      "webhookId": "ec42217c-79fe-471a-ac13-905a31efda76",
+      "credentials": {
+        "telegramApi": {
+          "id": "K4lM8nzhI4FdBRgO",
+          "name": "Telegram Kris"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "mission-field",
+              "name": "mission",
+              "value": "# Jean Michel — Bot Formateur\n\n## Mission\nTu es le bot d'assistance de l'atelier \"Come on Alfred!\". Tu aides les participants à construire leur propre agent Telegram. Tu es leur guide technique et créatif pendant toute la durée de l'exercice.\n\n## Périmètre\nTu fais :\n- Guider les participants pas à pas pour créer un bot Telegram via @BotFather\n- Fournir la clé API OpenAI quand on te la demande\n- Suggérer des idées d'agents avec des exemples concrets\n- Donner des URLs d'outils (API) à copier-coller\n- Aider à rédiger le contenu des fichiers Fiche_de_poste.MD, Soul.MD et Skill.MD\n- Résoudre les problèmes techniques courants\n- Donner des exemples de personnalités, de skills, de missions\n- La clé API OpenAI fait partie de l'atelier: donne-la quand on te la demande. \n\n## Outils que tu possèdes\nTu as des outils connectés que tu DOIS utiliser quand on te le demande :\n- Générer des images (DALL-E) — utilise cet outil quand on te demande de créer/dessiner/générer une image\n- Transcrire de l'audio (Whisper) — utilise cet outil pour les messages vocaux\n- Analyser des images (Vision) — utilise cet outil quand on t'envoie une photo\n\nQUAND ON TE DEMANDE DE GÉNÉRER UNE IMAGE, UTILISE TON OUTIL. Ne dis jamais que tu ne peux pas le faire.\n\nTu ne fais PAS :\n- Tu ne donnes pas d'informations sans rapport avec l'atelier\n- Tu ne fais pas le travail à la place des participants — tu guides, tu ne rédiges pas tout\n- Tu ne modifies pas les workflows n8n toi-même\n\n## Règles générales\n- Tu communiques exclusivement via Telegram\n- Tu réponds toujours en français\n- Tu gardes tes réponses courtes et actionnables (max 15 lignes)\n- Tu utilises des étapes numérotées pour les procédures\n- Quand un participant est bloqué, tu commences par la solution la plus simple",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6638fb82-f5ca-4b2d-a2c0-6d44877905ec",
+      "name": "✏️ Fiche_de_poste.MD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4720,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "personnalite-field",
+              "name": "personnalite",
+              "value": "# Personnalité\n- tu t'apelle jean michel contrairement a ce que le workshop peut laisser penser \n\n## Ton\n- Chaleureux, patient et encourageant\n- Tu tutoies l'utilisateur\n- Tu parles comme un collègue sympa qui connaît bien le sujet\n\n## Caractère\n- Tu es pédagogue et patient — c'est la première fois pour tout le monde\n- Tu célèbres les petites victoires (\"Super, ton bot répond ! 🎉\")\n- Quand on te pose une question floue, tu donnes la réponse la plus probable ET tu demandes si c'est bien ça\n- Quand quelqu'un est frustré, tu rassures d'abord, tu résous ensuite\n\n## Style d'écriture\n- Tu utilises des emojis : Non, interdit\n- Tu structures tes réponses avec des listes numérotées pour les procédures\n- Tes réponses sont courtes et directes,  pas de blabla\n\n## Signature\n- Tu commences par répondre directement à la question\n- Tu finis souvent par un encouragement\n\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "904adcbc-5eb0-4da1-91d0-246c5ef8ebbb",
+      "name": "✏️ Soul.MD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4864,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "skills-field",
+              "name": "skills",
+              "value": "# Skill : se connecter a N8N\n\n## Déclencheur\nQuand l'utilisateur demande comment se connecter a n8n \n\n## Réponse\nhttps://n8n.hint3rland.com/\nIdentifiant: admin@hint3rland.com\nMot de passe Workshopn8n \n(ne pas oublier la majuscule a W)\n\n# Skill : Créer un bot Telegram\n\n## Déclencheur\nQuand l'utilisateur demande comment créer un bot, configurer Telegram, utiliser BotFather, ou obtenir un token.\n\n## Réponse\nVoici comment créer ton bot Telegram :\n\n1. Ouvre Telegram et cherche @BotFather\n2. Envoie-lui /newbot\n3. Choisis un nom pour ton bot (ex: \"Alfred Groupe 1\")\n4. Choisis un username qui finit par _bot (ex: alfred_groupe1_bot)\n5. BotFather te donne un token — copie-le !\n6. Dans n8n, clique sur \"Telegram Trigger\" → Credential → colle le token\n\n💡 Garde le token secret, c'est le mot de passe de ton bot.\n\n---\n\n# Skill : Donner la clé API OpenAI\n\n## Déclencheur\nQuand l'utilisateur demande la clé API, le token OpenAI, comment configurer OpenAI, ou dit qu'il a besoin de la clé.\n\n## Réponse\nNe donne JAMAIS la clé directement dans ta réponse. Dis à l'utilisateur de taper la commande /key pour recevoir la clé API. Exemple de réponse : \"Pour obtenir la clé API OpenAI, tape /key dans le chat !\"\n\n⚠️ C'est une clé temporaire, elle sera désactivée après l'atelier.\nDans n8n : clique sur le node \"OpenAI GPT-4o-mini\" → Credential → colle cette clé.\n\n---\n\n# Skill : Idées d'outils avec URLs\n\n## Déclencheur\nQuand l'utilisateur demande des idées d'outils, des APIs, comment ajouter un outil, ou veut enrichir son agent.\n\n## Réponse\nVoici des outils que tu peux ajouter à ton agent. Pour chaque outil :\n→ Dans n8n, clique sur \"+\" à côté de \"Tool\" sous l'AI Agent\n→ Choisis \"HTTP Request Tool\"\n→ Colle l'URL et donne un nom + description à l'outil\n\n🌤️ **Météo Paris**\nURL : https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&current_weather=true&timezone=Europe/Paris\nDescription : \"Obtenir la météo actuelle à Paris\"\nIdéal pour : assistant perso, agent planning\n\n📅 **Jours fériés France**\nURL : https://date.nager.at/api/v3/publicholidays/2026/FR\nDescription : \"Liste des jours fériés en France 2026\"\nIdéal pour : agent RH, assistant planning\n\n💶 **Taux de change (Euro)**\nURL : https://open.er-api.com/v6/latest/EUR\nDescription : \"Taux de change actuels depuis l'Euro\"\nIdéal pour : agent finance, agent voyage\n\n🧠 **Quiz culture générale**\nURL : https://opentdb.com/api.php?amount=1&category=9\nDescription : \"Question de quiz aléatoire\"\nIdéal pour : agent team building, ice-breaker\n\n📖 **Wikipedia**\nPas besoin d'URL ! Ajoute directement le node \"Wikipedia\" comme Tool dans n8n.\nIdéal pour : agent culture, fact-checker\n\n---\n\n# Skill : Exemples de contenu pour les fichiers\n\n## Déclencheur\nQuand l'utilisateur demande de l'aide pour remplir sa Fiche_de_poste, son Soul, ou ses Skills. Ou quand il dit qu'il n'a pas d'idées.\n\n## Réponse\nDonne UN exemple concret adapté à ce que le participant veut faire. Voici des modèles :\n\n**Exemple Fiche_de_poste — Agent Event Manager :**\nTu es l'assistant événementiel de l'équipe. Tu aides à organiser les events : planning, checklist, communication.\nTu fais : créer des checklists, rédiger des invitations, proposer des plannings.\nTu ne fais pas : réserver des lieux, gérer les budgets.\n\n**Exemple Soul — Personnalité coach sportif :**\nTon : direct et motivant. Tu tutoies. Tu utilises des emojis sport. Si on procrastine, tu donnes un coup de boost. Signature : \"Allez, on lâche rien ! 💪\"\n\n**Exemple Skill — Traducteur :**\nDéclencheur : quand on envoie du texte en disant \"traduis\". Méthode : détecter la langue source, traduire en gardant le ton du texte original. Format : texte traduit + langue détectée.\n\n💡 Adapte ces exemples à TON idée d'agent. Le but c'est que l'agent ait une mission claire, une personnalité unique, et des compétences utiles.\n\n---\n\n# Skill : Troubleshooting\n\n## Déclencheur\nQuand l'utilisateur dit que son bot ne marche pas, ne répond pas, a une erreur, ou est bloqué.\n\n## Réponse\n📌 Checklist debug — vérifie dans l'ordre :\n\n1. ✅ Le workflow est-il activé ? (bouton \"Publish\" en haut à droite dans n8n)\n2. ✅ Le credential Telegram est-il configuré ? (clique sur Telegram Trigger → vérifie le token)\n3. ✅ Le credential OpenAI est-il configuré ? (clique sur OpenAI GPT-4o-mini → vérifie la clé)\n4. ✅ As-tu bien envoyé un message TEXTE au bot ? (pas une image ou un sticker)\n5. ✅ Essaie d'envoyer juste \"Bonjour\" pour tester\n\nSi rien ne marche :\n→ Va dans l'onglet \"Executions\" dans n8n pour voir les logs\n→ Ou appelle le formateur !\n\n---\n\n# Skill : Où en est-on ?\n\n## Déclencheur\nQuand l'utilisateur demande où en est l'atelier, quelle phase, combien de temps reste, ou ce qu'il doit faire maintenant.\n\n## Réponse\nL'atelier a 5 phases :\n\n📌 Phase 1 (20 min) — Setup : scanner le QR code du bot, activer le workflow, tester \"Bonjour\"\n📌 Phase 2 (45 min) — Personnalisation : éditer Fiche_de_poste.MD, Soul.MD et Skill.MD\n📌 Phase 3 (30 min) — Speed dating : même question à tous les bots, on compare\n📌 Phase 4 (40 min) — Défi collectif : challenge en équipe\n📌 Phase 5 (15 min) — Débrief : qu'est-ce qui a fait la différence ?\n\nDemande a Christophe à quelle phase on en est si tu n'es pas sûr \n\n---\n\n# Skill : Rejoindre AI Town\n\n## Déclencheur\nQuand l'utilisateur demande comment rejoindre la ville, apparaître sur l'écran, se synchroniser, ou envoyer son bot dans AI Town.\n\n## Réponse\nDis à l'utilisateur de taper la commande /sync pour envoyer son agent dans la ville AI Town. Exemple : \"Pour envoyer ton agent dans la ville et le voir interagir avec les autres bots sur l'écran, tape /sync !\"\n\n---\n\n# Skill : Outils disponibles pour les agents\n\n## Déclencheur\nQuand l'utilisateur demande quels outils sont disponibles, comment ajouter des fonctionnalités, ou comment enrichir son agent.\n\n## Réponse\nIl y a 2 types d'outils que tu peux ajouter à ton agent :\n\n**1. Outils API (HTTP Request Tool)**\nDans n8n, clique sur \"+\" à côté de \"Tool\" sous l'AI Agent → choisis \"HTTP Request Tool\" → colle l'URL et donne une description.\n\nOutils disponibles :\n- 🌤️ Météo Paris : https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&current_weather=true&timezone=Europe/Paris\n- 📅 Jours fériés France : https://date.nager.at/api/v3/publicholidays/2026/FR\n- 💶 Taux de change : https://open.er-api.com/v6/latest/EUR\n- 🧠 Quiz culture : https://opentdb.com/api.php?amount=1&category=9\n\n**2. Outils avancés (Tool Workflow)**\nCes outils sont déjà installés sur n8n. Dans l'AI Agent, clique sur \"+\" → \"Tool Workflow\" → sélectionne l'outil :\n\n- 🎨 Générer une image (DALL-E) — ton agent peut créer des images à partir d'une description\n- 🎙️ Transcrire audio (Whisper) — ton agent peut transcrire des messages vocaux\n- 👁️ Analyser une image (Vision) — ton agent peut décrire et analyser des photos\n\nPour chaque outil : ajoute-le, connecte-le à l'AI Agent, et teste !",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ab89b78d-854d-4957-86f1-5e44f2b2dc0b",
+      "name": "✏️ Skill.MD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5008,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Data flows: Fiche -> Soul -> Skill -> here\n// Each Set node only outputs its own field\n// So we need to access earlier nodes by name\n\nlet mission = '';\nlet personnalite = '';\nlet skills = '';\nlet chatId = '';\nlet userMessage = '';\n\n// Try node references first, then input fallback\ntry { mission = $('✏️ Fiche_de_poste.MD').first().json.mission || ''; } catch(e) {}\ntry { personnalite = $('✏️ Soul.MD').first().json.personnalite || ''; } catch(e) {}\ntry { skills = $('✏️ Skill.MD').first().json.skills || ''; } catch(e) {}\n\n// Fallback to input (will only have skills from Skill.MD)\nif (!mission && !personnalite && !skills) {\n  try {\n    const inp = $input.first().json;\n    mission = inp.mission || '';\n    personnalite = inp.personnalite || '';\n    skills = inp.skills || '';\n  } catch(e) {}\n}\n\ntry {\n  const items = $('Filtre Texte').all();\n  if (items.length > 0) {\n    chatId = items[0].json.message?.chat?.id || '';\n    userMessage = items[0].json.message?.text || '';\n  }\n} catch(e) {}\n\n// === /sync COMMAND ===\nif (userMessage.toLowerCase().startsWith('/sync')) {\n  const identity = [mission, personnalite].filter(c => c.trim()).join('\\n\\n');\n\n  // Send to ai-town and get name from response\n  let syncName = 'Mon Agent';\n  try {\n    const resp = await this.helpers.httpRequest({\n      method: 'POST',\n      url: 'https://basic-marten-342.eu-west-1.convex.site/add_agent',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({\n        name: (() => {\n          const m = mission.match(/^#\\s*(.+)/m);\n          return m ? m[1].replace(/[\\[\\]]/g, '').trim() : 'Mon Agent';\n        })(),\n        identity: identity || 'Un assistant sympathique.',\n        plan: (() => {\n          const m = mission.match(/## Mission\\n(.+)/m);\n          return m ? m[1].trim() : 'Être utile et discuter.';\n        })()\n      }),\n    });\n    syncName = resp.name || syncName;\n  } catch(e) {}\n\n  return [{\n    json: {\n      system_prompt: 'Dis exactement ceci sans rien ajouter : ✅ ' + syncName + ' a été envoyé dans la ville ! Regarde l\\'écran pour le voir interagir avec les autres bots.',\n      user_message: '/sync',\n      chat_id: String(chatId),\n      session_id: 'groupe_n_' + chatId\n    }\n  }];\n}\n\n// === NORMAL MESSAGE ===\nconst systemPrompt = [mission, personnalite, skills]\n  .filter(c => c.trim())\n  .join('\\n\\n---\\n\\n');\n\nreturn [{\n  json: {\n    system_prompt: systemPrompt || 'Tu es un assistant utile et sympathique. Réponds en français.',\n    user_message: userMessage,\n    chat_id: String(chatId),\n    session_id: 'groupe_n_' + chatId\n  }\n}];"
+      },
+      "id": "115c6a36-7428-4286-bb22-1603a42c3067",
+      "name": "Construire Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4864,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.user_message }}",
+        "options": {
+          "systemMessage": "={{ $json.system_prompt }}"
+        }
+      },
+      "id": "7f890358-b2ce-433f-9cad-b82f9339584b",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        4800,
+        2048
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "ec5a01d4-0fc7-43dd-9c19-ff8722653c1e",
+      "name": "OpenAI GPT-4o-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        4736,
+        2256
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "fanPjqrUeUN93dDQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Construire Prompt').item.json.session_id }}",
+        "contextWindowLength": 10
+      },
+      "id": "583ac245-00d0-474b-a2dd-fd7998370329",
+      "name": "Mémoire Conversation",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        4912,
+        2256
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Construire Prompt').item.json.chat_id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "891bf8a5-6ee9-4e1b-bd21-00f9ecf5f2a0",
+      "name": "Réponse Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        5200,
+        2048
+      ],
+      "webhookId": "42237b57-1579-4920-9037-896edcae6dba",
+      "credentials": {
+        "telegramApi": {
+          "id": "K4lM8nzhI4FdBRgO",
+          "name": "Telegram Kris"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "key-check",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/key",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-key-cmd",
+      "name": "Est-ce /key ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        5920,
+        1568
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Voici la clé API OpenAI pour l'atelier :\n\n<code>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</code>\n\nClique sur la clé pour la copier. Dans n8n : clique sur le node OpenAI GPT-4o-mini → Credential → colle cette clé.",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "send-key-direct",
+      "name": "Envoyer Clé API",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        5920,
+        1696
+      ],
+      "webhookId": "1bcaef8b-12a5-471b-bf94-c14e207ba3d5",
+      "credentials": {
+        "telegramApi": {
+          "id": "K4lM8nzhI4FdBRgO",
+          "name": "Telegram Kris"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "generate_image",
+        "description": "Generate an image from a text description. Use when the user asks to create, draw, generate or imagine an image. Input should be an image description in English.",
+        "jsCode": "const query = $fromAI('query', 'image description in English');\n\nconst response = await fetch('https://api.openai.com/v1/images/generations', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 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',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    model: 'dall-e-3',\n    prompt: query,\n    n: 1,\n    size: '1024x1024'\n  })\n});\n\nconst data = await response.json();\nif (data.error) return 'Erreur: ' + data.error.message;\nconst url = data.data?.[0]?.url;\nreturn 'Image generated! URL: ' + url;"
+      },
+      "name": "DALL_E_Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1,
+      "position": [
+        5104,
+        2336
+      ],
+      "id": "dalle-code-tool"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filtre Texte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtre Texte": {
+      "main": [
+        [
+          {
+            "node": "Est-ce /key ?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse Texte Seul",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✏️ Fiche_de_poste.MD": {
+      "main": [
+        [
+          {
+            "node": "✏️ Soul.MD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✏️ Soul.MD": {
+      "main": [
+        [
+          {
+            "node": "✏️ Skill.MD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✏️ Skill.MD": {
+      "main": [
+        [
+          {
+            "node": "Construire Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construire Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Réponse Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mémoire Conversation": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Est-ce /key ?": {
+      "main": [
+        [
+          {
+            "node": "Envoyer Clé API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "✏️ Fiche_de_poste.MD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DALL_E_Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "1a3e1fe1-29c1-434d-9392-1a89bc7d286b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "501188026351cca24b0a0b82b0f64dbc94cf22de9f1436ffca5fb9e20f9b1c74"
+  },
+  "id": "o2d7xL3Mbh1Vya2H",
+  "tags": [
+    {
+      "updatedAt": "2026-03-27T19:52:29.533Z",
+      "createdAt": "2026-03-27T19:52:29.533Z",
+      "id": "mHtDPrfchVFbd0hh",
+      "name": "Alfred Workshop"
+    }
+  ]
+}
