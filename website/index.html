@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" data-i18n="meta.description" content="AIQual — Automatisation intelligente et agents IA pour entreprises. Startup genevoise spécialisée en IA agentique." />
+  <meta name="author" content="AIQual" />
+  <title data-i18n="meta.title">AIQual — Automatisation IA · Genève</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a class="logo" href="#accueil">AIQual</a>
+      <ul class="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+        <li><a href="#contact" class="btn-nav" data-i18n="nav.cta">Prendre RDV</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="lang-switcher" id="langSwitcher" aria-label="Switch language">
+          <span class="lang-flag">🇬🇧</span>
+          <span class="lang-label">EN</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO / ACCUEIL -->
+  <section class="hero" id="accueil">
+    <div class="container hero-inner">
+      <div class="hero-badge" data-i18n="hero.badge">🇨🇭 Startup genevoise</div>
+      <h1 data-i18n="hero.title">L'automatisation IA<br/>au service de votre entreprise</h1>
+      <p class="hero-sub" data-i18n="hero.sub">AIQual conçoit et déploie des <strong>agents IA autonomes</strong> qui automatisent vos processus métiers, vous font gagner du temps et amplifient votre impact.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary" data-i18n="hero.ctaPrimary">Prendre rendez-vous</a>
+        <a href="#services" class="btn-secondary" data-i18n="hero.ctaSecondary">Découvrir nos services</a>
+      </div>
+      <div class="hero-tags">
+        <span>AI Agents</span>
+        <span>Automation</span>
+        <span>n8n</span>
+        <span>LangChain</span>
+        <span>RAG</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="services.title">Nos services</h2>
+        <p data-i18n="services.sub">Des solutions IA sur mesure pour accélérer votre transformation numérique</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3 data-i18n="services.card1.title">Agents IA autonomes</h3>
+          <p data-i18n="services.card1.text">Conception et déploiement d'agents capables de raisonner, décider et agir — intégrés à vos outils existants (Telegram, CRM, ERP).</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚙️</div>
+          <h3 data-i18n="services.card2.title">Automatisation de processus</h3>
+          <p data-i18n="services.card2.text">Orchestration de workflows complexes via n8n, Make et LangGraph. Réduisez les tâches répétitives et libérez votre équipe.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔬</div>
+          <h3 data-i18n="services.card3.title">Veille technologique IA</h3>
+          <p data-i18n="services.card3.text">Suivi et analyse des dernières avancées en IA générative, LLMs et automatisation pour rester à la pointe de l'innovation.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎓</div>
+          <h3 data-i18n="services.card4.title">Consulting & Formation</h3>
+          <p data-i18n="services.card4.text">Accompagnement stratégique pour l'adoption de l'IA en entreprise. Partenaire ESM Genève — programme Business Specialist IA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section class="about" id="about">
+    <div class="container about-inner">
+      <div class="about-text">
+        <div class="section-header left">
+          <h2 data-i18n="about.title">À propos d'AIQual</h2>
+          <p data-i18n="about.sub">Nous sommes une startup genevoise à l'intersection de l'intelligence artificielle et de l'automatisation métier.</p>
+        </div>
+        <p data-i18n="about.p1">Chez AIQual, nous croyons que l'IA agentique représente un tournant majeur pour les organisations. Notre mission est de rendre cette technologie accessible, concrète et immédiatement utile — que vous soyez une PME ou une grande entreprise.</p>
+        <p data-i18n="about.p2">En lien avec l'<strong>ESM Genève</strong>, nous formons également les professionnels de demain aux métiers du Business Specialist IA.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-num">3</span>
+            <span class="stat-label" data-i18n="about.stat1">Agents IA déployés</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-label" data-i18n="about.stat2">Made in Geneva 🇨🇭</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-stack">
+        <h4 data-i18n="about.stackTitle">Stack technologique</h4>
+        <ul>
+          <li>🧠 LLMs : OpenAI GPT-4, Claude (Anthropic)</li>
+          <li>🔗 Frameworks : LangChain, LangGraph, n8n</li>
+          <li data-i18n="about.stackData">🗄️ Données : RAG, Pinecone, PostgreSQL</li>
+          <li>🚀 Infra : Docker, FastAPI, GitHub Actions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / RDV -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="contact.title">Prenons contact</h2>
+        <p data-i18n="contact.sub">Discutons de votre projet d'automatisation IA — premier échange gratuit et sans engagement.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">📧</span>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:contact@aiqual.ch">contact@aiqual.ch</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div>
+              <strong data-i18n="contact.location">Localisation</strong>
+              <span>Genève, Suisse 🇨🇭</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">🎓</span>
+            <div>
+              <strong data-i18n="contact.partner">Partenaire formation</strong>
+              <span>ESM Genève — Business Specialist IA</span>
+            </div>
+          </div>
+          <a href="mailto:contact@aiqual.ch" class="btn-primary" style="margin-top:1.5rem;display:inline-block;" data-i18n="contact.send">Envoyer un message</a>
+        </div>
+        <div class="contact-rdv">
+          <h3 data-i18n="contact.rdvTitle">Réserver un rendez-vous</h3>
+          <p data-i18n="contact.rdvSub">Notre assistant IA peut planifier un créneau directement dans votre agenda.</p>
+          <div class="rdv-placeholder">
+            <span>📅</span>
+            <p data-i18n="contact.rdvWidget">Widget de prise de rendez-vous<br/><small>(intégration n8n à venir)</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">AIQual</span>
+        <p data-i18n="footer.tagline">Façonner l'avenir du travail avec l'intelligence artificielle.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#accueil" data-i18n="nav.home">Accueil</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#about" data-i18n="nav.about">À propos</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-legal">
+        <p>© 2025 AIQual — Genève, Suisse 🇨🇭</p>
+        <p><a href="mailto:security@aiqual.ch">security@aiqual.ch</a> · <a href="mailto:contact@aiqual.ch">contact@aiqual.ch</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

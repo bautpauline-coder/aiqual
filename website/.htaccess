@@ -1,0 +1,40 @@
+# AIQual — .htaccess
+# Hébergement Infomaniak (Apache)
+
+# --- HTTPS forcé ---
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- www → non-www (ou l'inverse selon préférence) ---
+RewriteCond %{HTTP_HOST} ^www\.aiqual\.ai [NC]
+RewriteRule ^ https://aiqual.ai%{REQUEST_URI} [L,R=301]
+
+# --- Cache navigateur ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css             "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/png            "access plus 6 months"
+  ExpiresByType image/jpg            "access plus 6 months"
+  ExpiresByType image/jpeg           "access plus 6 months"
+  ExpiresByType image/svg+xml        "access plus 6 months"
+  ExpiresByType image/webp           "access plus 6 months"
+  ExpiresByType text/html            "access plus 1 hour"
+</IfModule>
+
+# --- Compression Gzip ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain
+</IfModule>
+
+# --- Sécurité ---
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# --- Page d'erreur personnalisée (optionnel) ---
+# ErrorDocument 404 /404.html

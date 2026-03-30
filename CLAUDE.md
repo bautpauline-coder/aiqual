@@ -1,14 +1,20 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Ce fichier est la **source de vérité unique** du projet AIQual. Il guide à la fois **Claude Code** (terminal) et **Cowork** (application desktop Claude).
 
-## Project Overview
+> 📁 Dépôt local : `Documents/AIQual` | GitHub : `github.com/bautpauline-coder/aiqual`
+
+---
+
+## Vue d'ensemble du projet
 
 AIQual est une startup genevoise spécialisée en automatisation IA. Le dépôt contient :
 - 3 workflows n8n (`n8n/bot sources/`) — agents IA en français
 - Infrastructure Docker PostgreSQL + n8n (`docker/postgres/`)
 - Documentation en français (`Markdown/`)
 - Configuration DNS/infrastructure (`config/domains.md`)
+
+---
 
 ## Infrastructure Setup
 
@@ -27,13 +33,15 @@ Services disponibles :
 - Production n8n : https://n8n.aiqual.ai (DNS → 84.227.116.51, Infomaniak/Sunrise)
 - Timezone : Europe/Zurich
 
+---
+
 ## Workflows n8n
 
 Les 3 fichiers JSON dans `n8n/bot sources/` s'importent directement dans n8n (Settings → Import).
 
 **Pauline Assistante IA** (`Pauline Assistante IA(2).json`) — actif : non
 - Agent IA multi-canal en français (Telegram + widget chat)
-- Modèle : GPT-5-mini (OpenAI)
+- Modèle : GPT-4o-mini (OpenAI)
 - Outils : recherche Perplexity (avec citations), requêtes PostgreSQL (table `invoices.n8n_chat_histories`), calculatrice, génération d'images DALL-E, transcription vocale
 - Mémoire conversationnelle stockée en PostgreSQL
 - Personnalité : tutoiement, emojis structurants (🟢 succès, 🟥 erreur, ℹ️ info, ⚠️ avertissement)
@@ -52,18 +60,22 @@ Les 3 fichiers JSON dans `n8n/bot sources/` s'importent directement dans n8n (Se
 - Commandes spéciales : `/key` (envoie la clé API OpenAI), `/sync` (synchronise avec simulateur ai-town)
 - Mémoire : buffer 10 messages par `groupe_n_{chatId}`
 
+---
+
 ## Credentials nécessaires
 
-Pour faire fonctionner les workflows, configurer dans n8n (Settings → Credentials) :
+Configurer dans n8n (Settings → Credentials) :
 - OpenAI API key
 - Telegram Bot API (deux comptes distincts selon le workflow)
 - Google Calendar OAuth2 (compte `rodolphe.duthu@aiqual.ai`)
 - Perplexity API key
 - PostgreSQL (connection vers `aiqual_postgres`)
 
+---
+
 ## Python Development
 
-Conventions définies dans `Markdown/CONTRIBUTING.md` :
+Stack prévue : FastAPI + LangChain/LangGraph, RAG avec bases vectorielles (Pinecone/Weaviate/Chroma).
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
@@ -78,7 +90,7 @@ pytest --cov=src tests/   # tests (objectif 80% de couverture)
 
 > `requirements.txt` et `requirements-dev.txt` n'existent pas encore — à créer lors de l'ajout de code Python.
 
-Stack Python prévue : FastAPI + LangChain/LangGraph, RAG avec bases vectorielles (Pinecone/Weaviate/Chroma).
+---
 
 ## Conventions
 
@@ -86,3 +98,28 @@ Stack Python prévue : FastAPI + LangChain/LangGraph, RAG avec bases vectorielle
 - Langue : documentation et commentaires en français
 - PRs : 1 approbation minimum, délai de réponse 5 jours ouvrés
 - Sécurité : security@aiqual.ch (SLA 48h)
+
+---
+
+## Utilisation avec Claude
+
+### Claude Code (terminal)
+Lancer depuis `Documents/AIQual` :
+```bash
+claude
+```
+Les permissions git et Python sont pré-configurées dans `.claude/settings.local.json`.
+
+### Cowork (application desktop)
+- Dossier de travail sélectionné : `Documents/AIQual`
+- Projet Claude : **AIqual** (synchronisé avec ce dépôt)
+- Pauline peut demander à Cowork de lire, modifier ou créer des fichiers directement dans ce dépôt
+
+---
+
+## Contact
+
+- Email : contact@aiqual.ch
+- Sécurité : security@aiqual.ch
+- Site : aiqual.ch
+- Partenaire formation : ESM Genève (Business Specialist IA)
