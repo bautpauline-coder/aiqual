@@ -4,19 +4,24 @@
    ============================================ */
 
 :root {
-  --primary: #6C47FF;
-  --primary-dark: #5535E0;
-  --accent: #00D4AA;
-  --dark: #0F0F1A;
-  --dark-2: #1A1A2E;
-  --dark-3: #252540;
-  --text: #E8E8F0;
-  --text-muted: #9090B0;
-  --white: #FFFFFF;
-  --radius: 12px;
-  --shadow: 0 4px 24px rgba(108, 71, 255, 0.15);
-  --transition: 0.25s ease;
-  --font: 'Inter', system-ui, sans-serif;
+  /* Palette logo AIQual — violet + or */
+  --primary:      #8B35D6;   /* violet logo */
+  --primary-dark: #7128B8;   /* violet foncé */
+  --primary-light:#A855F7;   /* violet clair hover */
+  --gold:         #C9A017;   /* or logo (anneau orbital) */
+  --gold-dark:    #A8820F;   /* or foncé */
+  --gold-light:   #E4BC3A;   /* or clair */
+  --dark:         #0D0D18;
+  --dark-2:       #161625;
+  --dark-3:       #211F38;
+  --text:         #EEEEF5;
+  --text-muted:   #9090B8;
+  --white:        #FFFFFF;
+  --radius:       12px;
+  --shadow:       0 4px 28px rgba(139, 53, 214, 0.2);
+  --shadow-gold:  0 4px 20px rgba(201, 160, 23, 0.15);
+  --transition:   0.25s ease;
+  --font:         'Inter', system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,13 +60,27 @@ body {
   height: 64px;
 }
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--white);
   text-decoration: none;
   letter-spacing: -0.5px;
 }
-.logo span { color: var(--primary); }
+.logo img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+.logo-text {
+  background: linear-gradient(135deg, var(--primary-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
 .nav-links {
   list-style: none;
   display: flex;
@@ -106,7 +125,7 @@ body {
 }
 .lang-switcher:hover {
   border-color: var(--primary);
-  background: rgba(108,71,255,0.12);
+  background: rgba(139, 53, 214, 0.12);
 }
 .lang-flag { font-size: 1rem; }
 .hamburger {
@@ -121,16 +140,28 @@ body {
 /* --- BUTTONS --- */
 .btn-primary {
   display: inline-block;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
   padding: 0.85rem 2rem;
   border-radius: var(--radius);
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
-  transition: background var(--transition), transform var(--transition);
+  border: 1px solid rgba(201, 160, 23, 0.2);
+  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
 }
-.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  filter: brightness(1.1);
+}
+/* Variante or pour le CTA principal hero */
+.btn-primary.gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  border: 1px solid rgba(201, 160, 23, 0.4);
+  color: #0D0D18;
+}
+.btn-primary.gold:hover { box-shadow: var(--shadow-gold); }
 .btn-secondary {
   display: inline-block;
   background: transparent;
@@ -151,15 +182,15 @@ body {
   display: flex;
   align-items: center;
   padding: 6rem 0 4rem;
-  background: radial-gradient(ellipse at 60% 20%, rgba(108,71,255,0.18) 0%, transparent 60%),
-              radial-gradient(ellipse at 10% 80%, rgba(0,212,170,0.08) 0%, transparent 50%),
+  background: radial-gradient(ellipse at 60% 20%, rgba(139, 53, 214, 0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 10% 80%, rgba(201, 160, 23, 0.08) 0%, transparent 50%),
               var(--dark);
 }
 .hero-inner { max-width: 760px; }
 .hero-badge {
   display: inline-block;
-  background: rgba(108,71,255,0.15);
-  border: 1px solid rgba(108,71,255,0.3);
+  background: rgba(139, 53, 214, 0.2);
+  border: 1px solid rgba(139, 53, 214, 0.3);
   color: var(--primary);
   padding: 0.3rem 1rem;
   border-radius: 100px;
@@ -243,7 +274,7 @@ body {
   transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 .card:hover {
-  border-color: rgba(108,71,255,0.4);
+  border-color: rgba(139, 53, 214, 0.4);
   transform: translateY(-4px);
   box-shadow: var(--shadow);
 }
@@ -280,7 +311,7 @@ body {
   display: block;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--gold);
 }
 .stat-label {
   display: block;
